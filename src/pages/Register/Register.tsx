@@ -1,9 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import bg from "../../images/auth-bg/bg-2.jpg";
 const wrapperStyle = {
   backgroundImage: `url(${bg})`,
 };
 function Register() {
+  const history = useHistory();
   return (
     <div className="hold-transition theme-primary bg-img" style={wrapperStyle}>
       <div className="container" style={{ height: "100vh" }}>
@@ -17,7 +19,7 @@ function Register() {
                     <p className="mb-0">Register a new membership</p>
                   </div>
                   <div className="p-40">
-                    <form action="index.html" method="post">
+                    <form onSubmit={() => history.push("/")}>
                       <div className="form-group">
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
