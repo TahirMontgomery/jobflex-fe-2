@@ -52,7 +52,7 @@ function Navbar({ collapsed, setCollapse }: NavbarProps) {
           <ul className="nav navbar-nav">
             <li className="btn-group nav-item d-lg-flex d-none align-items-center">
               <p className="mb-0 text-fade pr-10 pt-5">
-                Friday, 4th December 2020
+                {new Date().toLocaleDateString()}
               </p>
             </li>
             <li className="btn-group nav-item d-lg-inline-flex d-none">

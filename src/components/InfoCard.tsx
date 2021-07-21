@@ -1,17 +1,21 @@
 import React from "react";
 
-function InfoCard({ icon }) {
+interface InfoCardProps {
+  icon: any;
+  text: string;
+  amount: string;
+}
+
+function InfoCard({ icon, text, amount }: InfoCardProps) {
   return (
     <div className="box">
       <div className="box-body py-0">
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            <h5 className="text-fade">Applications</h5>
-            <h2 className="font-weight-500 mb-0">132.0K</h2>
+            <h5 className="text-fade">{text}</h5>
+            <h2 className="font-weight-500 mb-0">{amount}</h2>
           </div>
-          <div>
-            <div id={icon}></div>
-          </div>
+          <div>{icon}</div>
         </div>
       </div>
     </div>
