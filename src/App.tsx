@@ -8,53 +8,13 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Container from "./components/Container";
 import Applications from "./pages/Applications/Applications";
+import CalendarComp from "./pages/Calendar/Calendar";
+import Settings from "./pages/Settings/Settings";
+import Inbox from "./pages/Inbox/Inbox";
 
 function App() {
   const [sidebarCollapse, setsidebarCollapse] = useState(false);
-  const links = [
-    {
-      name: "Dashboard",
-      href: "/",
-      icon: "icon-Layout-4-blocks",
-      paths: 2,
-    },
-    {
-      name: "Jobs",
-      href: "/jobs",
-      icon: "icon-Briefcase",
-      paths: 2,
-    },
-    {
-      name: "Applications",
-      href: "/apps",
-      icon: "icon-File",
-      paths: 3,
-    },
-    {
-      name: "Inbox",
-      href: "/inbox",
-      icon: "icon-Chat",
-      paths: 2,
-    },
-    {
-      name: "Calendar",
-      href: "/calendar",
-      icon: "icon-Layout-top-panel-1",
-      paths: 2,
-    },
-    {
-      name: "Analytics",
-      href: "/analytics",
-      icon: "icon-Chart-pie",
-      paths: 2,
-    },
-    {
-      name: "Settings",
-      href: "/settings",
-      icon: "icon-Layout-grid",
-      paths: 2,
-    },
-  ];
+
   return (
     <Router>
       <Switch>
@@ -69,6 +29,21 @@ function App() {
         <Route path="/apps">
           <Container>
             <Applications />
+          </Container>
+        </Route>
+        <Route path="/inbox">
+          <Container>
+            <Inbox />
+          </Container>
+        </Route>
+        <Route path="/calendar">
+          <Container>
+            <CalendarComp />
+          </Container>
+        </Route>
+        <Route path="/settings">
+          <Container>
+            <Settings />
           </Container>
         </Route>
         <Route path="/">

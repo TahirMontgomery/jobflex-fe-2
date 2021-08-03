@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ControlSidebar from "./ControlSidebar";
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
@@ -35,12 +37,12 @@ function Container({ children }) {
       icon: "icon-Layout-top-panel-1",
       paths: 2,
     },
-    {
-      name: "Analytics",
-      href: "/analytics",
-      icon: "icon-Chart-pie",
-      paths: 2,
-    },
+    // {
+    //   name: "Analytics",
+    //   href: "/analytics",
+    //   icon: "icon-Chart-pie",
+    //   paths: 2,
+    // },
     {
       name: "Settings",
       href: "/settings",
@@ -66,6 +68,8 @@ function Container({ children }) {
             <section className="content">{children}</section>
           </div>
         </div>
+        <Footer />
+        <ControlSidebar />
       </div>
     </div>
   );
