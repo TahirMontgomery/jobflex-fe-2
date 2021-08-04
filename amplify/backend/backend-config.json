@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "jobflex2053c44c1": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
