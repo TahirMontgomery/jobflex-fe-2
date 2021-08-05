@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jobflex2-dev-222008-authRole",
+      "UnauthRoleArn": "arn:aws:iam::337076788355:role/amplify-jobflex2-dev-222008-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::337076788355:role/amplify-jobflex2-dev-222008-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jobflex2-dev-222008-deployment",
+      "UnauthRoleName": "amplify-jobflex2-dev-222008-unauthRole",
+      "StackName": "amplify-jobflex2-dev-222008",
+      "StackId": "arn:aws:cloudformation:us-east-1:337076788355:stack/amplify-jobflex2-dev-222008/7ffa8df0-f4ca-11eb-9744-0a9bf4500c63",
+      "AmplifyAppId": "d3sye4u8mbr6ma"
+    },
+    "categories": {
+      "auth": {
+        "jobflex2053c44c1": {}
+      }
+    }
+  }
+}

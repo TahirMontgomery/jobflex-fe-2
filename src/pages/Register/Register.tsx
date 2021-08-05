@@ -1,11 +1,170 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import bg from "../../images/auth-bg/bg-2.jpg";
+import SocialAuthButton from "../../components/SocialAuthButton";
+import { Auth } from "aws-amplify";
+
 const wrapperStyle = {
   backgroundImage: `url(${bg})`,
 };
+
+interface RegisterInputProps {
+  field: string;
+  type: string;
+  placeholder?: string;
+  icon: string;
+  onChangeMethod: Function;
+  value: any;
+}
+
+function RegisterInput(props: RegisterInputProps) {
+  return (
+    <div className="form-group">
+      <div className="input-group mb-3">
+        <div className="input-group-prepend">
+          <span className="input-group-text bg-transparent">
+            <i className={props.icon}></i>
+          </span>
+        </div>
+        <input
+          required={true}
+          type={props.type}
+          className="form-control pl-15 bg-transparent"
+          placeholder={props.placeholder}
+          value={props.value[props.field]}
+          onChange={(e) => {
+            props.onChangeMethod({
+              ...props.value,
+              [props.field]: e.target.value,
+            });
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 function Register() {
+  const fields = [
+    {
+      field: "firstName",
+      type: "text",
+      placeholder: "First Name",
+      icon: "ti-user",
+    },
+    {
+      field: "lastName",
+      type: "text",
+      placeholder: "Last Name",
+      icon: "ti-user",
+    },
+    {
+      field: "username",
+      type: "text",
+      placeholder: "User Name",
+      icon: "ti-user",
+    },
+    {
+      field: "email",
+      type: "email",
+      placeholder: "Email",
+      icon: "ti-email",
+    },
+    {
+      field: "companyName",
+      type: "text",
+      placeholder: "Company Name",
+      icon: "ti-world",
+    },
+    {
+      field: "companySize",
+      type: "number",
+      placeholder: "Company Size",
+      icon: "ti-world",
+    },
+    {
+      field: "phone",
+      type: "tel",
+      placeholder: "Phone Number",
+      icon: "ti-mobile",
+    },
+    {
+      field: "password",
+      type: "password",
+      placeholder: "Password",
+      icon: "ti-lock",
+    },
+    {
+      field: "confirmPassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      icon: "ti-lock",
+    },
+  ];
+
   const history = useHistory();
+  const [registrationDetails, setRegistrationDetails] = useState({
+    firstName: "",
+    lastName: "",
+    companyName: "",
+    username: "",
+    email: "",
+    companySize: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [termsCheckbox, setTermsCheckbox] = useState(false);
+
+  const registerUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!termsCheckbox) {
+      alert("In order to continue, please accept the terms & conditions.");
+      return;
+    }
+
+    const fieldKeys = fields.map(({ field }) => field);
+    const hasAllKeys = fieldKeys.every(
+      (key) =>
+        registrationDetails.hasOwnProperty(key) &&
+        registrationDetails[key] !== ""
+    );
+
+    if (!hasAllKeys) {
+      alert("Missing required fields");
+      return;
+    }
+
+    if (
+      registrationDetails["password"] !== registrationDetails["confirmPassword"]
+    ) {
+      alert("Passwords are not matching. Please re-enter password");
+      return;
+    }
+
+    try {
+      await Auth.signUp({
+        username: registrationDetails.username,
+        password: registrationDetails.password,
+        attributes: {
+          email: registrationDetails.email,
+          given_name: registrationDetails.firstName,
+          family_name: registrationDetails.lastName,
+          "custom:companyName": registrationDetails.companyName,
+        },
+      });
+      history.push({
+        pathname: "/confirm",
+        state: {
+          email: registrationDetails.email,
+          username: registrationDetails.username,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="hold-transition theme-primary bg-img" style={wrapperStyle}>
       <div className="container" style={{ height: "100vh" }}>
@@ -19,68 +178,29 @@ function Register() {
                     <p className="mb-0">Register a new membership</p>
                   </div>
                   <div className="p-40">
-                    <form onSubmit={() => history.push("/")}>
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-user"></i>
-                            </span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control pl-15 bg-transparent"
-                            placeholder="Full Name"
+                    <form onSubmit={(e) => registerUser(e)}>
+                      {fields.map((field, idx) => {
+                        return (
+                          <RegisterInput
+                            key={idx}
+                            {...field}
+                            onChangeMethod={setRegistrationDetails}
+                            value={registrationDetails}
                           />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-email"></i>
-                            </span>
-                          </div>
-                          <input
-                            type="email"
-                            className="form-control pl-15 bg-transparent"
-                            placeholder="Email"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-lock"></i>
-                            </span>
-                          </div>
-                          <input
-                            type="password"
-                            className="form-control pl-15 bg-transparent"
-                            placeholder="Password"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-lock"></i>
-                            </span>
-                          </div>
-                          <input
-                            type="password"
-                            className="form-control pl-15 bg-transparent"
-                            placeholder="Retype Password"
-                          />
-                        </div>
-                      </div>
+                        );
+                      })}
                       <div className="row">
                         <div className="col-12">
                           <div className="checkbox">
-                            <input type="checkbox" id="basic_checkbox_1" />
-                            <label for="basic_checkbox_1">
+                            <input
+                              type="checkbox"
+                              id="basic_checkbox_1"
+                              checked={termsCheckbox}
+                              onChange={(e) =>
+                                setTermsCheckbox(e.target.checked)
+                              }
+                            />
+                            <label htmlFor="basic_checkbox_1">
                               I agree to the{" "}
                               <a href="#" className="text-warning">
                                 <b>Terms</b>
@@ -93,7 +213,7 @@ function Register() {
                             type="submit"
                             className="btn btn-info margin-top-10"
                           >
-                            SIGN IN
+                            SIGN UP
                           </button>
                         </div>
                       </div>
@@ -110,29 +230,14 @@ function Register() {
                   </div>
                 </div>
 
-                <div className="text-center">
+                {/* <div className="text-center">
                   <p className="mt-20 text-white">- Register With -</p>
                   <p className="gap-items-2 mb-20">
-                    <a
-                      className="btn btn-social-icon btn-round btn-facebook"
-                      href="#"
-                    >
-                      <i className="fa fa-facebook"></i>
-                    </a>
-                    <a
-                      className="btn btn-social-icon btn-round btn-twitter"
-                      href="#"
-                    >
-                      <i className="fa fa-twitter"></i>
-                    </a>
-                    <a
-                      className="btn btn-social-icon btn-round btn-instagram"
-                      href="#"
-                    >
-                      <i className="fa fa-instagram"></i>
-                    </a>
+                    <SocialAuthButton mode="register" social="facebook" />
+                    <SocialAuthButton mode="register" social="twitter" />
+                    <SocialAuthButton mode="register" social="google" />
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -142,4 +247,4 @@ function Register() {
   );
 }
 
-export default Register;
+export { Register as default, RegisterInput };

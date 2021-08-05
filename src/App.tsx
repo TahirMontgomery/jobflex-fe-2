@@ -11,6 +11,8 @@ import Applications from "./pages/Applications/Applications";
 import CalendarComp from "./pages/Calendar/Calendar";
 import Settings from "./pages/Settings/Settings";
 import Inbox from "./pages/Inbox/Inbox";
+import ConfirmEmail from "./pages/ConfirmEmail/ConfirmEmail";
+import Login from "./pages/Login/Login";
 
 function App() {
   const [sidebarCollapse, setsidebarCollapse] = useState(false);
@@ -20,6 +22,9 @@ function App() {
       <Switch>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/jobs">
           <Container>
@@ -45,6 +50,9 @@ function App() {
           <Container>
             <Settings />
           </Container>
+        </Route>
+        <Route path="/confirm">
+          <ConfirmEmail />
         </Route>
         <Route path="/">
           <Container>
