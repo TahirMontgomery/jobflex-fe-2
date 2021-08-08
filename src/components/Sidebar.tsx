@@ -2,7 +2,7 @@ import React from "react";
 import avatar13 from "../images/avatar/avatar-13.png";
 import { useLocation, useRouteMatch, Link } from "react-router-dom";
 import { Search, MessageSquare, Bell, LogOut } from "react-feather";
-
+import { Auth } from "aws-amplify";
 interface SidebarLinks {
   name: string;
   href: string;
@@ -118,6 +118,7 @@ function Sidebar(props: SidebarProps) {
             <li>
               <a
                 href="#"
+                onClick={() => Auth.signOut()}
                 data-toggle="tooltip"
                 data-placement="top"
                 title="Logout"
