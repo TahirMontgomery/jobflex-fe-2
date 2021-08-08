@@ -5,12 +5,22 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
+import CognitoAuthWrapper from "./components/CognitoAuthWrapper";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 
 Amplify.configure(awsconfig);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <Router>
+        <CognitoAuthWrapper>
+          <App />
+        </CognitoAuthWrapper>
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

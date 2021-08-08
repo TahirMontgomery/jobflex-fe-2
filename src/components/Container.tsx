@@ -3,6 +3,8 @@ import ControlSidebar from "./ControlSidebar";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import { useStore, useSelector } from "react-redux";
+import { getUser, isSignedIn } from "../store/auth";
 
 function Container({ children }) {
   const [sidebarCollapse, setsidebarCollapse] = useState(false);
@@ -50,6 +52,9 @@ function Container({ children }) {
       paths: 2,
     },
   ];
+  const user = useSelector(getUser);
+  const isLoggedIn = useSelector(isSignedIn);
+
   return (
     <div
       className={`light-skin sidebar-mini theme-primary ${
@@ -57,10 +62,12 @@ function Container({ children }) {
       }`}
     >
       <div className="wrapper">
+        {!isLoggedIn && <div id="loader"></div>}
+
         <Navbar collapsed={sidebarCollapse} setCollapse={setsidebarCollapse} />
         <Sidebar
           avatarImg="https://i.gadgets360cdn.com/large/elon_musk_reuters_1610084738222.jpg"
-          username="Elon Musk"
+          username={user?.given_name + " " + user?.family_name}
           links={links}
         />
         <div className="content-wrapper">

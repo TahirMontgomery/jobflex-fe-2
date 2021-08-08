@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import bg from "../../images/auth-bg/bg-2.jpg";
 import SocialAuthButton from "../../components/SocialAuthButton";
 import { Auth } from "aws-amplify";
@@ -221,10 +221,10 @@ function Register() {
                     <div className="text-center">
                       <p className="mt-15 mb-0">
                         Already have an account?
-                        <a href="auth_login.html" className="text-danger ml-5">
+                        <Link to="/login" className="text-danger ml-5">
                           {" "}
                           Sign In
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </div>

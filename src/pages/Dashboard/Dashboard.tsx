@@ -9,54 +9,10 @@ import ScheduledMeetingCard from "../../components/ScheduledMeetingCard";
 import Footer from "../../components/Footer";
 import ControlSidebar from "../../components/ControlSidebar";
 import Chart from "react-apexcharts";
+import { Auth } from "aws-amplify";
+import { useHistory, Route } from "react-router-dom";
 
 function Dashboard() {
-  const [sidebarCollapse, setsidebarCollapse] = useState(false);
-  const links = [
-    {
-      name: "Dashboard",
-      href: "/",
-      icon: "icon-Layout-4-blocks",
-      paths: 2,
-    },
-    {
-      name: "Jobs",
-      href: "/jobs",
-      icon: "icon-Briefcase",
-      paths: 2,
-    },
-    {
-      name: "Applications",
-      href: "/apps",
-      icon: "icon-File",
-      paths: 3,
-    },
-    {
-      name: "Inbox",
-      href: "/inbox",
-      icon: "icon-Chat",
-      paths: 2,
-    },
-    {
-      name: "Calendar",
-      href: "/calendar",
-      icon: "icon-Layout-top-panel-1",
-      paths: 2,
-    },
-    {
-      name: "Analytics",
-      href: "/analytics",
-      icon: "icon-Chart-pie",
-      paths: 2,
-    },
-    {
-      name: "Settings",
-      href: "/settings",
-      icon: "icon-Layout-grid",
-      paths: 2,
-    },
-  ];
-
   let activeJobs = [
     {
       title: "Project Manager",

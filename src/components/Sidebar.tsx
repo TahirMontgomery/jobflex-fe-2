@@ -1,6 +1,7 @@
 import React from "react";
 import avatar13 from "../images/avatar/avatar-13.png";
 import { useLocation, useRouteMatch, Link } from "react-router-dom";
+import { Search, MessageSquare, Bell, LogOut } from "react-feather";
 
 interface SidebarLinks {
   name: string;
@@ -16,6 +17,7 @@ interface SidebarProps {
 
 function Sidebar(props: SidebarProps) {
   let path = useRouteMatch();
+
   function getLinks() {
     let navLinks = props.links.map((link, index) => {
       return (
@@ -90,7 +92,7 @@ function Sidebar(props: SidebarProps) {
                 data-placement="top"
                 title="Search"
               >
-                <i data-feather="search"></i>
+                <Search />
               </a>
             </li>
             <li>
@@ -100,7 +102,7 @@ function Sidebar(props: SidebarProps) {
                 data-placement="top"
                 title="Notification"
               >
-                <i data-feather="bell"></i>
+                <Bell />
               </a>
             </li>
             <li>
@@ -110,7 +112,7 @@ function Sidebar(props: SidebarProps) {
                 data-placement="top"
                 title="Chat"
               >
-                <i data-feather="message-square"></i>
+                <MessageSquare />
               </a>
             </li>
             <li>
@@ -120,7 +122,7 @@ function Sidebar(props: SidebarProps) {
                 data-placement="top"
                 title="Logout"
               >
-                <i data-feather="log-out"></i>
+                <LogOut />
               </a>
             </li>
           </ul>

@@ -1,6 +1,8 @@
 import React from "react";
 import darkLogo from "../images/logo-dark-text.png";
 import lightLogo from "../images/logo-light-text.png";
+import { Auth } from "aws-amplify";
+import { Maximize, Settings, Bell, Menu } from "react-feather";
 
 interface NavbarProps {
   collapsed: boolean;
@@ -18,7 +20,7 @@ function Navbar({ collapsed, setCollapse }: NavbarProps) {
           role="button"
           onClick={() => setCollapse(!collapsed)}
         >
-          <i data-feather="menu"></i>
+          <Menu />
         </a>
         {/* <!-- Logo --> */}
         <a href="/" className="logo">
@@ -62,7 +64,7 @@ function Navbar({ collapsed, setCollapse }: NavbarProps) {
                 className="waves-effect waves-light nav-link full-screen"
                 title="Full Screen"
               >
-                <i data-feather="maximize"></i>
+                <Maximize />
               </a>
             </li>
             {/* <!-- Control Sidebar Toggle Button -->	 */}
@@ -73,7 +75,7 @@ function Navbar({ collapsed, setCollapse }: NavbarProps) {
                 className="waves-effect waves-light nav-link full-screen"
                 title="Setting"
               >
-                <i data-feather="settings"></i>
+                <Settings />
               </a>
             </li>
             {/* <!-- Notifications --> */}
@@ -84,7 +86,7 @@ function Navbar({ collapsed, setCollapse }: NavbarProps) {
                 data-toggle="dropdown"
                 title="Notifications"
               >
-                <i data-feather="bell"></i>
+                <Bell />
               </a>
               <ul className="dropdown-menu animated bounceIn">
                 <li className="header">
@@ -181,7 +183,7 @@ function Navbar({ collapsed, setCollapse }: NavbarProps) {
                     <i className="ti-settings text-muted mr-2"></i> Settings
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#">
+                  <a onClick={async () => Auth.signOut()} href="#">
                     <i className="ti-lock text-muted mr-2"></i> Logout
                   </a>
                 </li>
